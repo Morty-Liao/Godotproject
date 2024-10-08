@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://d0kij5d5q2sbk"]
+
+[ext_resource type="Script" path="res://assets/screen_tap_effects.gd" id="1_1ip8f"]
+[ext_resource type="Shader" path="res://assets/screen_tap_effects.gdshader" id="2_bitdv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hbw2w"]
+shader = ExtResource("2_bitdv")
+shader_parameter/width = 0.06
+
+[sub_resource type="Curve" id="Curve_eg0rr"]
+_data = [Vector2(0, 0), 0.0, -0.720365, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_im8ob"]
+curve = SubResource("Curve_eg0rr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_20k8l"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 30.0
+scale_max = 30.0
+scale_curve = SubResource("CurveTexture_im8ob")
+color = Color(0.968627, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_da3bw"]
+shader = ExtResource("2_bitdv")
+shader_parameter/width = 0.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s0va1"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 76.0
+initial_velocity_max = 96.0
+gravity = Vector3(0, 98, 0)
+linear_accel_min = 32.0
+linear_accel_max = 32.0
+scale_min = 4.0
+scale_max = 6.0
+color = Color(1, 1, 0.403922, 0.572549)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3uls2"]
+shader = ExtResource("2_bitdv")
+shader_parameter/width = 0.1
+
+[node name="Screen tap effects" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 5.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_1ip8f")
+
+[node name="graphics" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_hbw2w")
+position = Vector2(25, 14)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_20k8l")
+one_shot = true
+
+[node name="particle" type="GPUParticles2D" parent="graphics"]
+material = SubResource("ShaderMaterial_da3bw")
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_s0va1")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_3uls2")
+layout_mode = 0
+offset_left = 61.0
+offset_top = 9.0
+offset_right = 101.0
+offset_bottom = 49.0

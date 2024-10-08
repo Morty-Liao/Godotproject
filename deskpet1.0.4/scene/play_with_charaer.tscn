@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxcegs382gp3x"]
+
+[ext_resource type="Script" path="res://scene/play_with_charaer.gd" id="1_hfndy"]
+[ext_resource type="Texture2D" uid="uid://da8pasefjw13s" path="res://assets/xiangliClose.png" id="2_7wwcr"]
+[ext_resource type="Texture2D" uid="uid://kxost07xcydk" path="res://assets/xianglieyeclose.png" id="3_csp5a"]
+[ext_resource type="PackedScene" uid="uid://dhte27ag538pu" path="res://scene/dialog_box.tscn" id="4_cquyq"]
+[ext_resource type="FontFile" uid="uid://qcd2asgoapcp" path="res://assets/PixelOperator8-Bold.ttf" id="5_0txg3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blcmw"]
+size = Vector2(162.097, 164.788)
+
+[sub_resource type="Animation" id="Animation_8pmmu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_7wwcr")]
+}
+
+[sub_resource type="Animation" id="Animation_3b2cq"]
+resource_name = "idle_play"
+length = 3.0
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8, 2.2, 2.8),
+"transitions": PackedFloat32Array(1, 4, 2.2974, 4.43828, 5.09824),
+"update": 1,
+"values": [ExtResource("2_7wwcr"), ExtResource("3_csp5a"), ExtResource("2_7wwcr"), ExtResource("3_csp5a"), ExtResource("2_7wwcr")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nfqu5"]
+_data = {
+"RESET": SubResource("Animation_8pmmu"),
+"idle_play": SubResource("Animation_3b2cq")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgo4w"]
+bg_color = Color(0.854902, 0.854902, 0.854902, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60qnu"]
+
+[node name="play_with_charaer" type="Node2D"]
+script = ExtResource("1_hfndy")
+metadata/_edit_vertical_guides_ = [401.0]
+metadata/_edit_horizontal_guides_ = [372.0]
+
+[node name="Portrait" type="Sprite2D" parent="."]
+position = Vector2(154, 215)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_7wwcr")
+
+[node name="Area2D" type="Area2D" parent="Portrait"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portrait/Area2D"]
+position = Vector2(0, -0.412476)
+scale = Vector2(10.7526, -10.4007)
+shape = SubResource("RectangleShape2D_blcmw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Portrait"]
+libraries = {
+"": SubResource("AnimationLibrary_nfqu5")
+}
+
+[node name="dialog_box" parent="Portrait" instance=ExtResource("4_cquyq")]
+position = Vector2(96.0615, -600.384)
+scale = Vector2(8.889, 8.889)
+
+[node name="play_text" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 324.0
+offset_right = 401.0
+offset_bottom = 372.0
+theme_override_colors/font_color = Color(0.85098, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_0txg3")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgo4w")
+text = "按键盘的数字键回答你的数字，回车确认。"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quit" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="game_over" type="Button" parent="quit"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 87.0
+offset_right = 106.0
+offset_bottom = 118.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_60qnu")
+text = "退出游戏"
+
+[connection signal="input_event" from="Portrait/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="pressed" from="quit/game_over" to="." method="_on_game_over_pressed"]

@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7x28pgww76ci"]
+
+[ext_resource type="Script" path="res://scene/menu.gd" id="1_b0s8u"]
+[ext_resource type="AudioStream" uid="uid://dob4wo62wqi1e" path="res://assets/无名的人-毛不易.mp3" id="3_cs65m"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -245.0
+offset_bottom = -310.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b0s8u")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_right = 161.0
+offset_bottom = 136.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="exit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "退出桌宠"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+item_count = 4
+selected = 0
+allow_reselect = true
+popup/item_0/text = "       音乐选择"
+popup/item_0/id = 0
+popup/item_1/text = "       QQ音乐"
+popup/item_1/id = 1
+popup/item_2/text = "       网易云音乐"
+popup/item_2/id = 2
+popup/item_3/text = "       内置音乐"
+popup/item_3/id = 3
+
+[node name="ks" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "播放音乐"
+
+[node name="music_pause" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "暂停音乐"
+
+[node name="play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "小游戏"
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_cs65m")
+volume_db = 2.7
+mix_target = 1
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ks" to="." method="_on_ks_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/music_pause" to="." method="_on_music_pause_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]

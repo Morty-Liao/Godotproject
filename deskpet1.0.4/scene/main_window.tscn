@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://s30vweh072vm"]
+
+[ext_resource type="Script" path="res://scene/main_window.gd" id="1_fia6q"]
+[ext_resource type="PackedScene" uid="uid://b6kb0r160xnw4" path="res://scene/character.tscn" id="1_iig4m"]
+[ext_resource type="PackedScene" uid="uid://c45sf08oknggm" path="res://scene/chat_text.tscn" id="3_dxnjr"]
+[ext_resource type="PackedScene" uid="uid://c7x28pgww76ci" path="res://scene/main_window (2).tscn" id="4_m3x1x"]
+[ext_resource type="PackedScene" uid="uid://d0kij5d5q2sbk" path="res://assets/screen_tap_effects.tscn" id="5_undcy"]
+
+[node name="mainWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_fia6q")
+metadata/_edit_vertical_guides_ = [934.0]
+metadata/_edit_horizontal_guides_ = [682.0]
+
+[node name="character" parent="." instance=ExtResource("1_iig4m")]
+position = Vector2(219, 231)
+scale = Vector2(0.0980804, 0.0980804)
+
+[node name="chatText" parent="." instance=ExtResource("3_dxnjr")]
+layout_mode = 1
+offset_left = 61.0
+offset_top = 75.0
+offset_right = 189.0
+offset_bottom = 118.0
+text = ""
+horizontal_alignment = 2
+
+[node name="WeatherApi" type="HTTPRequest" parent="."]
+
+[node name="WeatherRequestTimer" type="Timer" parent="WeatherApi"]
+wait_time = 60.0
+autostart = true
+
+[node name="menu" parent="." instance=ExtResource("4_m3x1x")]
+layout_mode = 1
+offset_top = 148.0
+offset_right = -300.0
+offset_bottom = -133.0
+metadata/_edit_horizontal_guides_ = [136.0]
+metadata/_edit_vertical_guides_ = [85.0]
+
+[node name="Screen tap effects" parent="." instance=ExtResource("5_undcy")]
+layout_mode = 1
+
+[connection signal="chat" from="character" to="." method="_on_character_chat"]
+[connection signal="chat_warn" from="character" to="." method="_on_character_chat_warn"]
+[connection signal="request_completed" from="WeatherApi" to="." method="_on_weather_api_request_completed"]
+[connection signal="timeout" from="WeatherApi/WeatherRequestTimer" to="." method="_on_weather_request_timer_timeout"]

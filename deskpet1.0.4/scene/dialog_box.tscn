@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhte27ag538pu"]
+
+[ext_resource type="FontFile" uid="uid://cqfgrgik4rl73" path="res://assets/PixelOperator8.ttf" id="1_8g4md"]
+[ext_resource type="Texture2D" uid="uid://dap2xk6lcghfp" path="res://assets/button_grey.png" id="1_njepk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xxodi"]
+texture = ExtResource("1_njepk")
+texture_margin_left = 5.9584
+texture_margin_top = 4.90691
+texture_margin_right = 7.71086
+texture_margin_bottom = 9.46333
+region_rect = Rect2(-0.140442, 0.914371, 128.563, 51.5226)
+
+[node name="dialog_box" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -93.0
+offset_right = 150.0
+offset_bottom = -5.62976
+grow_vertical = 0
+scale = Vector2(0.769765, 0.769765)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8g4md")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxTexture_xxodi")
+text = " 小游戏，测试"
+vertical_alignment = 1
+autowrap_mode = 3

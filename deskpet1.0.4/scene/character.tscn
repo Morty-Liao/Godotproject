@@ -1,0 +1,154 @@
+[gd_scene load_steps=13 format=3 uid="uid://b6kb0r160xnw4"]
+
+[ext_resource type="Script" path="res://scene/character.gd" id="1_bj870"]
+[ext_resource type="Texture2D" uid="uid://da8pasefjw13s" path="res://assets/xiangliClose.png" id="2_f4joq"]
+[ext_resource type="Texture2D" uid="uid://dtuwo6n8byfnf" path="res://assets/xiangliopen.png" id="3_rucdx"]
+[ext_resource type="Texture2D" uid="uid://kxost07xcydk" path="res://assets/xianglieyeclose.png" id="4_eh1yr"]
+[ext_resource type="AudioStream" uid="uid://rqfoblkf83tr" path="res://assets/coin.wav" id="4_mk77h"]
+
+[sub_resource type="Animation" id="Animation_kygs3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_f4joq")]
+}
+
+[sub_resource type="Animation" id="Animation_yrqjm"]
+resource_name = "Speaking"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq")]
+}
+
+[sub_resource type="Animation" id="Animation_o5vb2"]
+resource_name = "Speaking_2"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq")]
+}
+
+[sub_resource type="Animation" id="Animation_51hr4"]
+resource_name = "idle"
+length = 3.0
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8, 2.2, 2.8),
+"transitions": PackedFloat32Array(4.92458, 7.21, 3.4822, 5.09824, 3.605),
+"update": 1,
+"values": [ExtResource("2_f4joq"), ExtResource("4_eh1yr"), ExtResource("2_f4joq"), ExtResource("4_eh1yr"), ExtResource("2_f4joq")]
+}
+
+[sub_resource type="Animation" id="Animation_3nb5j"]
+resource_name = "Speaking_4"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq")]
+}
+
+[sub_resource type="Animation" id="Animation_fy7tx"]
+resource_name = "Speaking_3"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq"), ExtResource("3_rucdx"), ExtResource("2_f4joq")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dbhx4"]
+_data = {
+"RESET": SubResource("Animation_kygs3"),
+"Speaking": SubResource("Animation_yrqjm"),
+"drink_please": SubResource("Animation_o5vb2"),
+"idle": SubResource("Animation_51hr4"),
+"save_please": SubResource("Animation_3nb5j"),
+"walk_please": SubResource("Animation_fy7tx")
+}
+
+[node name="character" type="Node2D"]
+script = ExtResource("1_bj870")
+
+[node name="Portrait" type="Sprite2D" parent="."]
+texture = ExtResource("2_f4joq")
+
+[node name="Area2D" type="Area2D" parent="Portrait"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Portrait/Area2D"]
+polygon = PackedVector2Array(-486, -706, -345, -643, -217, -582, -100, -575, 14, -681, -6, -581, -132, -564, -266, -487, -319, -397, -385, -293, -494, -82, -630, 126, -618, 462, -518, 762, -170, 890, 136, 895, 402, 838, 602, 714, 674, 446, 622, 246, 582, 30, 461, -167, 370, -390, 234, -561, 146, -576, 97, -586, 111, -715, 215, -794, 193, -852, 120, -842, 25, -801, -109, -817, -216, -845, -305, -833, -413, -794)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dbhx4")
+}
+
+[node name="drinkTime" type="Timer" parent="."]
+wait_time = 1800.0
+one_shot = true
+autostart = true
+
+[node name="walkTime" type="Timer" parent="."]
+wait_time = 3600.0
+one_shot = true
+autostart = true
+
+[node name="saveTime" type="Timer" parent="."]
+wait_time = 1200.0
+one_shot = true
+autostart = true
+
+[node name="warn_voice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mk77h")
+volume_db = 24.0
+
+[connection signal="input_event" from="Portrait/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="timeout" from="drinkTime" to="." method="_on_drink_time_timeout"]
+[connection signal="timeout" from="walkTime" to="." method="_on_walk_time_timeout"]
+[connection signal="timeout" from="saveTime" to="." method="_on_save_time_timeout"]
